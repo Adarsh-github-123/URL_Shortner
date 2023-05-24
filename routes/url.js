@@ -3,7 +3,7 @@ const router = express.Router();
 const createDB = require('../config/db');
 const Url = require('../models/urlModel');
 
-const baseUrl = "http://127.0.0.1:5500/urlapi"
+const baseUrl = "http://127.0.0.1:5500/public/urlapi";
 
 //connecting database
 createDB.sync.then( () => {
@@ -14,7 +14,7 @@ router.post('/', async(req, res) => {
     try{
         const {longUrl} = req.body;
         
-        const shortId = nanoid(4);
+        const shortId = Math.random();
 
         const shortUrl = await Url.create({
             longUrl,
