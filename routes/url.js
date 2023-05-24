@@ -1,9 +1,9 @@
-const express = require(express);
+const express = require('express');
 const router = express.Router();
 const createDB = require('../config/db');
 const Url = require('../models/urlModel');
 
-const baseUrl = "http://127.0.0.1:5500/public/urlapi";
+const baseUrl = "http://127.0.0.1:5500/urlapi";
 
 //connecting database
 createDB.sync.then( () => {
@@ -30,3 +30,24 @@ router.post('/', async(req, res) => {
         return res.status(500).send(e);
     }
 });
+
+router.get('/:short', async (req, res) => {
+    let shortId = req.params.short;
+    try{
+        //find long url from database
+        let url = await Url.findOne({
+            where: {
+                shortUrl : shortId
+            }  
+        });
+        if(!url){
+            return res.status(404).send("Invalid short Url");
+        }
+        return res.redirect(url.longUrl);
+    } catch(e){
+        return res.status(500).send(e);
+    }
+})
+
+
+module.exports = router;
