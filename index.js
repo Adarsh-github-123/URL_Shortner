@@ -4,8 +4,8 @@ const homeRoutes = require("./routes/home");
 const shortUrl = require("./routes/url");
 
 const PORT = 1337;
-
-//middlewares
+ 
+//middlewares 
 app.use(express.json());
 app.use(express.static("public"));
 app.use(express.urlencoded({extended: false}));

@@ -3,10 +3,10 @@ const router = express.Router();
 const createDB = require('../config/db');
 const Url = require('../models/urlModel');
 
-const baseUrl = "http://127.0.0.1:5500/urlapi";
+const baseUrl = "http://localhost:5500/urlapi";
 
 //connecting database
-createDB.sync.then( () => {
+createDB.sync().then( () => {
     console.log("Database created");
 })
 
@@ -23,7 +23,7 @@ router.post('/', async(req, res) => {
 
         return res.status(200).json({
             status: "ok",
-            shortUrl: `${baseUrl}/${shortId}`
+            shortUrl: `${baseUrl}/${shortId}`,
         })
     } catch(e){
         console.error(e);
@@ -50,4 +50,4 @@ router.get('/:short', async (req, res) => {
 })
 
 
-module.exports = router;
+module.exports = router; 
